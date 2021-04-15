@@ -1838,7 +1838,7 @@ BOOST_AUTO_TEST_CASE( hbd_interest )
 
 BOOST_AUTO_TEST_CASE(hbd_savings_interest)
 {
-  using hive::plugins::condenser_api::legacy_asset;
+  using hive::protocol::legacy_asset;
 
   try
   {
