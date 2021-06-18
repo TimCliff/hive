@@ -194,7 +194,7 @@ hived_options_tests:
     - apt-get update -y && apt-get install -y python3 python3-pip python3-dev
     - pip3 install requests
 
-create_account_tests:
+cli_wallet_extended_tests:
   stage: test
   extends: .test_tools_based
   needs:
@@ -203,7 +203,7 @@ create_account_tests:
   image: "$CI_REGISTRY_IMAGE/test$TEST_IMAGE_TAG"
   script:
     - pip3 install pytest
-    - cd tests/functional/python_tests/create_account_tests
+    - cd tests/functional/python_tests/cli_wallet_extended_tests
     - pytest
   tags:
     - public-runner-docker
