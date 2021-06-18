@@ -209,7 +209,7 @@ void database::open( const open_args& args )
       init_hardforks(); // Writes to local state, but reads from db
     });
 
-#if defined(IS_TEST_NET) || defined(HIVE_CONVERTER_BUILD)
+#ifdef USE_ALTERNATE_CHAIN_ID
   /// Leave the chain-id passed to cmdline option.
 #else
     with_read_lock( [&]()
@@ -627,7 +627,7 @@ chain_id_type database::get_chain_id() const
 
 chain_id_type database::get_old_chain_id() const
 {
-#if defined(IS_TEST_NET) || defined(HIVE_CONVERTER_BUILD)
+#ifdef USE_ALTERNATE_CHAIN_ID
   return hive_chain_id; /// In testnet always use the chain-id passed as hived option
 #else
   return STEEM_CHAIN_ID;
@@ -636,7 +636,7 @@ chain_id_type database::get_old_chain_id() const
 
 chain_id_type database::get_new_chain_id() const
 {
-#if defined(IS_TEST_NET) || defined(HIVE_CONVERTER_BUILD)
+#ifdef USE_ALTERNATE_CHAIN_ID
   return hive_chain_id; /// In testnet always use the chain-id passed as hived option
 #else
   return HIVE_CHAIN_ID;
@@ -6192,7 +6192,7 @@ void database::apply_hardfork( uint32_t hardfork )
     case HIVE_HARDFORK_1_24:
     {
       restore_accounts( hardforkprotect::get_restored_accounts() );
-#if defined(IS_TEST_NET) || defined(HIVE_CONVERTER_BUILD)
+#ifdef USE_ALTERNATE_CHAIN_ID
       /// Don't change chain_id in testnet build.
 #else
       set_chain_id(HIVE_CHAIN_ID);
