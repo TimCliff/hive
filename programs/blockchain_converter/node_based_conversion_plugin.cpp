@@ -122,9 +122,6 @@ namespace detail {
 
     if( output_con.get_socket().is_open() )
       output_con.get_socket().close();
-
-    if( hp::block_header::num_from_id( converter.get_previous_block_id() ) + 1 <= HIVE_HARDFORK_0_17_BLOCK_NUM )
-      std::cerr << "Second authority has not been applied on the accounts yet! Try resuming the conversion process\n";
   }
 
   void node_based_conversion_plugin_impl::convert( uint32_t start_block_num, uint32_t stop_block_num )

@@ -181,9 +181,6 @@ namespace detail {
 
     if( log_out.is_open() )
       log_out.close();
-
-    if( hp::block_header::num_from_id( converter.get_previous_block_id() ) + 1 <= HIVE_HARDFORK_0_17_BLOCK_NUM )
-      std::cerr << "Second authority has not been applied on the accounts yet! Try resuming the conversion process\n";
   }
 
 } // detail

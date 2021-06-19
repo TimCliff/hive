@@ -1,7 +1,6 @@
 #pragma once
 
 #include <map>
-#include <array>
 #include <string>
 
 #include <fc/exception/exception.hpp>
@@ -12,9 +11,6 @@
 #include <hive/protocol/authority.hpp>
 #include <hive/protocol/operations.hpp>
 #include <hive/protocol/block.hpp>
-
-
-#define HIVE_HARDFORK_0_17_BLOCK_NUM 10629455 // for pow operations
 
 namespace hive { namespace converter {
 
@@ -29,10 +25,7 @@ namespace hive { namespace converter {
     hp::chain_id_type    chain_id;
     hp::block_id_type    previous_block_id;
 
-    std::map< hp::account_name_type, std::array< fc::optional< authority >, 3 > >  pow_auths; // the array contains the following keys: owner, active and posting
-    std::map< authority::classification, hp::private_key_type >                    second_authority;
-
-    void post_convert_transaction( hp::signed_transaction& _transaction );
+    std::map< authority::classification, hp::private_key_type > second_authority;
 
   public:
     /// All converted blocks will be signed using given private key
@@ -43,7 +36,7 @@ namespace hive { namespace converter {
 
     void convert_signed_header( hp::signed_block_header& _signed_header );
 
-    void convert_authority( const hp::account_name_type& name, authority& _auth, authority::classification type );
+    void convert_authority( authority& _auth, authority::classification type );
 
     void sign_transaction( hp::signed_transaction& trx )const;
 
@@ -52,9 +45,6 @@ namespace hive { namespace converter {
 
     const hp::private_key_type& get_witness_key()const;
     const hp::chain_id_type& get_chain_id()const;
-
-    void add_pow_authority( const hp::account_name_type& name, authority auth, authority::classification type );
-    bool has_pow_authority( const hp::account_name_type& name )const;
 
     const hp::block_id_type& get_previous_block_id()const;
   };
